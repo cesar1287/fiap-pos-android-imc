@@ -56,14 +56,14 @@
                     style="@style/input_form"
                     android:layout_marginEnd="8dp"
                     android:hint="@string/weight_hint_label"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
 
                 <EditText
                     android:id="@+id/etAltura"
                     style="@style/input_form"
                     android:layout_marginStart="8dp"
                     android:hint="@string/height_hint_label"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
