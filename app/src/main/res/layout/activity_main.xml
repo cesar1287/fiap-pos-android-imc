@@ -84,6 +84,33 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <TextView
+            android:id="@+id/tvIMC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/index_label"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivIMCStatus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tvIMCStatus"
+            android:layout_below="@+id/tvIMC"
+            android:src="@drawable/masc_ideal" />
+
+        <TextView
+            android:id="@+id/tvIMCStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/ideal_weight"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
