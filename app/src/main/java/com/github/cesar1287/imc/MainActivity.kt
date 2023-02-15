@@ -2,10 +2,22 @@ package com.github.cesar1287.imc
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import com.github.cesar1287.imc.databinding.ActivityMainBinding
+import java.math.BigDecimal
+import java.text.DecimalFormat
+import kotlin.math.pow
 
 class MainActivity : AppCompatActivity() {
+
+    private val totalDecimalNumberWeight: Int = 1
+    private val totalDecimalNumberHeight: Int = 2
+
+    private var textWatcherWeight: TextWatcher? = null
+    private var textWatcherHeight: TextWatcher? = null
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -18,7 +30,75 @@ class MainActivity : AppCompatActivity() {
         binding.btCalcular.setOnClickListener {
             calculate()
         }
+
+        textWatcherWeight = binding.etPeso.doAfterTextChanged {
+            formatDigitsWeight(it)
+        }
+
+        textWatcherHeight = binding.etAltura.doAfterTextChanged {
+            formatDigitsHeight(it)
+        }
     }
+
+    private fun getTotalDecimalNumberWeight(): String {
+        val decimalNumber = StringBuilder()
+        for (i in 1..totalDecimalNumberWeight) {
+            decimalNumber.append("0")
+        }
+        return decimalNumber.toString()
+    }
+
+    private fun getTotalDecimalNumberHeight(): String {
+        val decimalNumber = StringBuilder()
+        for (i in 1..totalDecimalNumberHeight) {
+            decimalNumber.append("0")
+        }
+        return decimalNumber.toString()
+    }
+
+
+    private fun formatDigitsWeight(
+        editable: Editable?
+    ) {
+        binding.etPeso.removeTextChangedListener(textWatcherWeight)
+        val cleanString = editable.toString().trim().replace(" ", "")
+        val number = 10.toDouble().pow(totalDecimalNumberWeight.toDouble())
+        val parsed = when (cleanString) {
+            "" -> BigDecimal(0)
+            "null" -> BigDecimal(0)
+            else -> BigDecimal(cleanString.replace("\\D+".toRegex(), ""))
+                .setScale(totalDecimalNumberWeight, BigDecimal.ROUND_FLOOR)
+                .divide(BigDecimal(number.toInt()),
+                    BigDecimal.ROUND_FLOOR)
+        }
+        val dfnd = DecimalFormat("#,##0.${getTotalDecimalNumberWeight()}")
+        val formatted = dfnd.format(parsed)
+        binding.etPeso.setText(formatted.replace(',', '.'))
+        binding.etPeso.setSelection(formatted.length)
+        binding.etPeso.addTextChangedListener(textWatcherWeight)
+    }
+
+    private fun formatDigitsHeight(
+        editable: Editable?
+    ) {
+        binding.etAltura.removeTextChangedListener(textWatcherHeight)
+        val cleanString = editable.toString().trim().replace(" ", "")
+        val number = 10.toDouble().pow(totalDecimalNumberHeight.toDouble())
+        val parsed = when (cleanString) {
+            "" -> BigDecimal(0)
+            "null" -> BigDecimal(0)
+            else -> BigDecimal(cleanString.replace("\\D+".toRegex(), ""))
+                .setScale(totalDecimalNumberHeight, BigDecimal.ROUND_FLOOR)
+                .divide(BigDecimal(number.toInt()),
+                    BigDecimal.ROUND_FLOOR)
+        }
+        val dfnd = DecimalFormat("#,##0.${getTotalDecimalNumberHeight()}")
+        val formatted = dfnd.format(parsed)
+        binding.etAltura.setText(formatted.replace(',', '.'))
+        binding.etAltura.setSelection(formatted.length)
+        binding.etAltura.addTextChangedListener(textWatcherHeight)
+    }
+
 
     private fun calculate() {
         val weight = binding.etPeso.text.toString().toDouble()
@@ -42,7 +122,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun imcConfig(imc: Double, drawableId: Int, stringId: Int) {
         with(binding) {
-            tvIMC.text = "Seu IMC é: ${imc}"
+            tvIMC.text = getString(R.string.imc_result, imc.formatImcResult(2))
 
             ivIMCStatus.setImageDrawable(
                 ContextCompat.getDrawable(this@MainActivity, drawableId)

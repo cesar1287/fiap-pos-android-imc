@@ -15,4 +15,6 @@
     <string name="obesidade_grau_i">Você está com Obesidade Grau I</string>
     <string name="obesidade_grau_ii">Você está com Obesidade Grau II</string>
     <string name="obesidade_grau_iii">Você está com Obesidade Grau III</string>
+
+    <string name="imc_result">Seu IMC é: %1$s</string>
 </resources>
