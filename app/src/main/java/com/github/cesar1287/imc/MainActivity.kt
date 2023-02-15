@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import com.github.cesar1287.imc.databinding.ActivityMainBinding
 import java.math.BigDecimal
@@ -101,8 +102,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun calculate() {
-        val weight = binding.etPeso.text.toString().toDouble()
-        val height = binding.etAltura.text.toString().toDouble()
+        val weight = binding.etPeso.valueDouble()
+        val height = binding.etAltura.valueDouble()
         val imc = weight / (height * height)
         when {
             imc < 18.5 -> 
@@ -124,6 +125,7 @@ class MainActivity : AppCompatActivity() {
         with(binding) {
             tvIMC.text = getString(R.string.imc_result, imc.formatImcResult(2))
 
+            ivIMCStatus.isVisible = true
             ivIMCStatus.setImageDrawable(
                 ContextCompat.getDrawable(this@MainActivity, drawableId)
             )

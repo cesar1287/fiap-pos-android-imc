@@ -88,10 +88,10 @@
             android:id="@+id/tvIMC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/index_label"
             android:textAlignment="center"
             android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="Seu indice é: 30" />
 
         <ImageView
             android:id="@+id/ivIMCStatus"
@@ -99,18 +99,20 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/tvIMCStatus"
             android:layout_below="@+id/tvIMC"
-            android:src="@drawable/masc_ideal" />
+            android:src="@drawable/masc_ideal"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvIMCStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="@string/ideal_weight"
             android:textAlignment="center"
             android:textColor="#000"
             android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="Peso ideal" />
 
     </RelativeLayout>
 

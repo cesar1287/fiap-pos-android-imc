@@ -6,8 +6,6 @@
     <string name="weight_hint_label">65</string>
     <string name="height_hint_label">1.75</string>
     <string name="button_calculate">Calcular</string>
-    <string name="index_label">Seu indice é: 30</string>
-    <string name="ideal_weight">Peso Ideal</string>
 
     <string name="magreza">Abaixo do peso</string>
     <string name="peso_normal">Peso normal</string>
